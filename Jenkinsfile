@@ -17,7 +17,7 @@ pipeline {
         steps { 
             script {
                 echo "Install dependacies.."
-                // sh 'npm i'
+                sh 'npm i'
             }
         }
       } 
