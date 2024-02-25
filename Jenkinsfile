@@ -12,6 +12,16 @@ pipeline {
     }
 
     stages {      
+      
+      stage("Init"){
+        steps { 
+            script {
+                echo "Install dependacies.."
+                sh 'npm i'
+            }
+        }
+      } 
+
       stage("Build"){
         steps { 
             script {
