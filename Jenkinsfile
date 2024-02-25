@@ -8,7 +8,7 @@ pipeline {
     }
 
     tools {
-        node : 'Node-18.0.0' 
+        node 'Node-18.0.0' 
     }
 
     stages {      
