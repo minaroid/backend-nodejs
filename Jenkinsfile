@@ -36,6 +36,15 @@ pipeline {
  
       } 
 
+      stage("Build Docker Omage"){
+        steps { 
+            script {
+                echo "Build docker image.."
+                docker.build('my-docker-image')
+            }
+        }
+    } 
+
     }
 
     // post {
