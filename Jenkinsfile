@@ -7,15 +7,21 @@ pipeline {
         // SERVER_CREDENTIALS = credentials('Github-cre')
     }
 
-    stages {
-      
+    tools {
+        node : 'Node-18.0.0' 
+    }
+
+    stages {      
       stage("Build"){
-        
-        steps {     
-            echo "Building the app.., ${NEW_VERSION}"
-            withCredentials([usernamePassword(credentialsId: 'Github-cre', passwordVariable: 'USERNAME', usernameVariable: 'PASSWORD')]) {
-                echo "Building the app.., ${USERNAME} - ${PASSWORD}"
+        steps { 
+            script {
+                echo "Building the app.."
+                sh 'npm run build'
             }
+            
+            // withCredentials([usernamePassword(credentialsId: 'Github-cre', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+            //     echo "Building the app.., ${USERNAME} - ${PASSWORD}"
+            // }
         }
  
       } 
