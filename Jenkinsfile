@@ -17,7 +17,7 @@ pipeline {
         steps { 
             script {
                 echo "Install dependacies.."
-                sh 'npm i'
+                // sh 'npm i'
             }
         }
       } 
@@ -37,12 +37,12 @@ pipeline {
             script {
                 echo "Build docker image.."           
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh 'docker build -it minaroid/nodejs-jenkins:1.0 .'
+                    sh "docker build -it minaroid/nodejs-jenkins:$NEW_VERSION ."
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                 }
             }
         }
-    } 
+      } 
 
     }
 
