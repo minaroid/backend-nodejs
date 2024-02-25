@@ -3,7 +3,7 @@ pipeline {
     agent any
     
     environment {
-        NEW_VERSION = '1.1.0'
+        NEW_VERSION = '1.1.1'
         // SERVER_CREDENTIALS = credentials('Github-cre')
     }
 
