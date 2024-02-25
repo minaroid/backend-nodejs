@@ -39,6 +39,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     sh "docker build -t minaroid/nodejs-jenkins:$NEW_VERSION ."
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                    sh "docker push minaroid/nodejs-jenkins:$NEW_VERSION"
                 }
             }
         }
