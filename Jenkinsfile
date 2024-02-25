@@ -13,11 +13,9 @@ pipeline {
         
         steps {     
             echo "Building the app.., ${NEW_VERSION}"
-            withCredentials([usernamePassword: (credentialsId: "Github-cre", usernameVariable: USERNAME, passwordVariable: PASSWORD)]){
-            echo "Building the app.., ${USERNAME} - ${PASSWORD}"
-
+            withCredentials([usernamePassword(credentialsId: 'Github-cre', passwordVariable: 'USERNAME', usernameVariable: 'PASSWORD')]) {
+                echo "Building the app.., ${USERNAME} - ${PASSWORD}"
             }
-
         }
  
       } 
