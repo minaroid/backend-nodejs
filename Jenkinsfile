@@ -28,19 +28,18 @@ pipeline {
                 echo "Building the app.."
                 sh 'npm run build'
             }
-            
-            // withCredentials([usernamePassword(credentialsId: 'Github-cre', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-            //     echo "Building the app.., ${USERNAME} - ${PASSWORD}"
-            // }
         }
  
       } 
 
-      stage("Build Docker Omage"){
+      stage("Build Docker Image"){
         steps { 
             script {
-                echo "Build docker image.."
-                docker.build('my-docker-image')
+                echo "Build docker image.."           
+                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    sh 'docker build -it minaroid/nodejs-jenkins:1.0 .'
+                    sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                }
             }
         }
     } 
