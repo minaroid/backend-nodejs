@@ -21,19 +21,19 @@ pipeline {
 
     }
 
-    post {
+    // post {
         
-        always {
-            //
-        }
+        // always {
+        //     //
+        // }
 
-        success {
-            //
-        }
+        // success {
+        //     //
+        // }
 
-        failure {
-            //
-        }
+        // failure {
+        //     //
+        // }
 
-    }
+    // }
 }
