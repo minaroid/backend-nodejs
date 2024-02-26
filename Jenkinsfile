@@ -97,7 +97,7 @@ pipeline {
         steps { 
          when{
            expression {
-               SELECTED == 'YES'
+               params.SELECTED == 'YES'
            }
         }
 
