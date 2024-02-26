@@ -92,11 +92,11 @@ pipeline {
             }
         }
 
-         when{
-           expression {
-               SELECTED == 'YES'
-           }
-        }
+        //  when{
+        //    expression {
+        //        SELECTED == 'YES'
+        //    }
+        // }
 
 
         steps { 
