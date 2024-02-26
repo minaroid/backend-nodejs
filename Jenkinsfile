@@ -20,6 +20,20 @@ pipeline {
                 sh 'npm i'
             }
         }
+      }
+
+      stage("Test"){
+         when{
+            expression {
+                BRANCH_NAME == 'deployments/development'
+            }
+         }
+         steps { 
+            script {
+                echo "Run Test..."
+                sh 'npm run test'
+            }
+         }
       } 
 
       stage("Build"){
@@ -41,6 +55,45 @@ pipeline {
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     sh "docker push minaroid/nodejs-jenkins:$NEW_VERSION"
                 }
+            }
+        }
+      } 
+
+      stage("Depolyment - Development"){
+         when{
+            expression {
+                BRANCH_NAME == 'deployments/development'
+            }
+         }
+        steps { 
+            script {
+                echo "Depolyment - Development ..."           
+            }
+        }
+      } 
+
+      stage("Depolyment - Staging"){
+         when{
+            expression {
+                BRANCH_NAME == 'deployments/staging'
+            }
+         }
+        steps { 
+            script {
+                echo "Depolyment - Staging ..."           
+            }
+        }
+      } 
+
+      stage("Depolyment - Production"){
+         when{
+            expression {
+                BRANCH_NAME == 'deployments/production'
+            }
+         }
+        steps { 
+            script {
+                echo "Depolyment - Production ..."           
             }
         }
       } 
