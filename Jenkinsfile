@@ -76,7 +76,7 @@ pipeline {
         }
       } 
 
-      stage("Depolyment - Development"){
+      stage("Deploy(Development)"){
          when{
             expression {
                 ENVIROMENT == 'development'
@@ -89,7 +89,7 @@ pipeline {
         }
       } 
 
-      stage("Depolyment - Staging"){
+      stage("Deploy(Staging)"){
          when{
             expression {
                 ENVIROMENT == 'staging'
@@ -102,7 +102,7 @@ pipeline {
         }
       } 
 
-      stage("Depolyment - Production"){
+      stage("Deploy(Production)"){
          when{
             expression {
                 ENVIROMENT == 'production'
