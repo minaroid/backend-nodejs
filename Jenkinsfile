@@ -76,12 +76,29 @@ pipeline {
         }
       } 
 
-      stage("Deploy(Development)"){
-         when{
-            expression {
-                ENVIROMENT == 'development'
+      stage("Deploy - Development"){
+        when{
+           expression {
+               ENVIROMENT == 'development'
             }
-         }
+        }
+
+        
+        input {
+            message "Deploy this build to production?"
+            ok "Done"
+            parameters {
+                choice(name: 'SELECTED', choices: ['YES', 'NO'], description: '')
+            }
+        }
+
+         when{
+           expression {
+               SELECTED == 'YES'
+           }
+        }
+
+
         steps { 
             script {
                 echo "Depolyment - Development ..."           
@@ -89,12 +106,12 @@ pipeline {
         }
       } 
 
-      stage("Deploy(Staging)"){
-         when{
-            expression {
-                ENVIROMENT == 'staging'
-            }
-         }
+      stage("Deploy - Staging"){
+        when{
+           expression {
+               ENVIROMENT == 'staging'
+           }
+        }
         steps { 
             script {
                 echo "Depolyment - Staging ..."           
@@ -102,12 +119,13 @@ pipeline {
         }
       } 
 
-      stage("Deploy(Production)"){
-         when{
-            expression {
-                ENVIROMENT == 'production'
-            }
-         }
+      stage("Deploy - Production"){
+        when{
+           expression {
+               ENVIROMENT == 'production'
+           }
+        }
+
         steps { 
             script {
                 echo "Depolyment - Production ..."           
@@ -117,19 +135,4 @@ pipeline {
 
     }
 
-    // post {
-        
-        // always {
-        //     //
-        // }
-
-        // success {
-        //     //
-        // }
-
-        // failure {
-        //     //
-        // }
-
-    // }
 }
