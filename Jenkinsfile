@@ -92,14 +92,15 @@ pipeline {
             }
         }
 
-        //  when{
-        //    expression {
-        //        SELECTED == 'YES'
-        //    }
-        // }
-
+   
 
         steps { 
+         when{
+           expression {
+               SELECTED == 'YES'
+           }
+        }
+
             script {
                 echo "Depolyment - Development ..."           
             }
