@@ -1,10 +1,20 @@
+def getEnvName(branchName) {
+    if("deployments/production".equals(branchName)) {
+        return "production";
+    } else if ("deployments/staging".equals(branchName)) {
+        return "staging";
+    } else {
+        return "development";
+    }
+}
+
+
 pipeline {
     
     agent any
     
     environment {
-        NEW_VERSION = '1.1.1'
-        // SERVER_CREDENTIALS = credentials('Github-cre')
+        ENVIROMENT = getEnvName(env.BRANCH_NAME)
     }
 
     tools {
@@ -25,7 +35,7 @@ pipeline {
       stage("Test"){
          when{
             expression {
-                BRANCH_NAME == 'deployments/development'
+                ENVIROMENT == 'development'
             }
          }
          steps { 
@@ -47,13 +57,20 @@ pipeline {
       } 
 
       stage("Build Docker Image"){
+        environment {
+            IMAGE ="minaroid/nodejs-jenkins:$ENVIROMENT-1.0.$BUILD_NUMBER"
+            LATEST_IMAGE="minaroid/nodejs-jenkins:$ENVIROMENT-latest"
+        }
+
         steps { 
             script {
                 echo "Build docker image.."           
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh "docker build -t minaroid/nodejs-jenkins:$NEW_VERSION ."
+                    sh "docker build -t $IMAGE ."
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-                    sh "docker push minaroid/nodejs-jenkins:$NEW_VERSION"
+                    sh "docker push $IMAGE"
+                    sh "docker tag $IMAGE $LATEST_IMAGE"
+                    sh "docker push $LATEST_IMAGE"
                 }
             }
         }
@@ -62,7 +79,7 @@ pipeline {
       stage("Depolyment - Development"){
          when{
             expression {
-                BRANCH_NAME == 'deployments/development'
+                ENVIROMENT == 'development'
             }
          }
         steps { 
@@ -75,7 +92,7 @@ pipeline {
       stage("Depolyment - Staging"){
          when{
             expression {
-                BRANCH_NAME == 'deployments/staging'
+                ENVIROMENT == 'staging'
             }
          }
         steps { 
@@ -88,7 +105,7 @@ pipeline {
       stage("Depolyment - Production"){
          when{
             expression {
-                BRANCH_NAME == 'deployments/production'
+                ENVIROMENT == 'production'
             }
          }
         steps { 
