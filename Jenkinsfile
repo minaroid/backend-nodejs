@@ -15,6 +15,8 @@ pipeline {
     
     environment {
         ENVIROMENT = getEnvName(env.BRANCH_NAME)
+        IMAGE ="minaroid/nodejs-jenkins:$ENVIROMENT-1.0.$BUILD_NUMBER"
+        LATEST_IMAGE="minaroid/nodejs-jenkins:$ENVIROMENT-latest"
     }
 
     tools {
@@ -57,10 +59,6 @@ pipeline {
       } 
 
       stage("Build Docker Image"){
-        environment {
-            IMAGE ="minaroid/nodejs-jenkins:$ENVIROMENT-1.0.$BUILD_NUMBER"
-            LATEST_IMAGE="minaroid/nodejs-jenkins:$ENVIROMENT-latest"
-        }
 
         steps { 
             script {
@@ -85,7 +83,12 @@ pipeline {
 
         steps { 
             script {
-                echo "Depolyment - Development ..."           
+                echo "Depolyment - Development ..."
+                def dockerCmd = "docker run -p -d 80:3000 ${IMAGE}"
+                sshagent(['SERVER']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.82.8.31 ${dockerCmd}"
+
+                }           
             }
         }
       } 
@@ -118,29 +121,25 @@ pipeline {
         }
       } 
 
-      stage("Commit Version"){
+    //   stage("Commit Version"){
 
-        steps { 
-            script {
-                withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh 'git config --global user.email "jenkins@example.com"'
-                    sh 'git config --global user.name "Jenkins"'
+    //     steps { 
+    //         script {
+    //             withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+    //                 sh 'git config --global user.email "jenkins@example.com"'
+    //                 sh 'git config --global user.name "Jenkins"'
                     
-                    sh 'echo "Jenkins-docker" >> koko.md'
-                    sh "git add ./koko.md"
+    //                 sh 'echo "Jenkins-docker" >> koko.md'
+    //                 sh "git add ./koko.md"
                     
-                    sh 'git commit -m "ci: version bump"'
-                    sh "echo ${env.GIT_URL}"
-                    sh "git remote set-url origin http://${USERNAME}:${PASSWORD}@github.com/minaroid/backend-nodejs.git"
-                    sh "git push origin HEAD:${env.BRANCH_NAME}"
-
-                    // sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-                    // sh "docker push $IMAGE"
-                    // sh "docker tag $IMAGE $LATEST_IMAGE"
-                    // sh "docker push $LATEST_IMAGE"
-                }            }
-        }
-      } 
+    //                 sh 'git commit -m "ci: version bump"'
+    //                 sh "echo ${env.GIT_URL}"
+    //                 sh "git remote set-url origin http://${USERNAME}:${PASSWORD}@github.com/minaroid/backend-nodejs.git"
+    //                 sh "git push origin HEAD:${env.BRANCH_NAME}"
+    //               }            
+    //         }
+    //     }
+    //   } 
 
     }
 
