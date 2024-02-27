@@ -84,7 +84,7 @@ pipeline {
         }
 
         steps { 
-            input message: "promote to prodcustion or Abort", submitter: "user1,admin"
+            input message: "Deploy to production?"
             script {
                 echo "Depolyment - Development ..."           
             }
