@@ -130,7 +130,7 @@ pipeline {
                     sh "git add ./koko.md"
                     
                     sh 'git commit -m "ci: version bump"'
-                    sh 'git push'
+                    sh "git push origin HEAD:${env.BRANCH_NAME}"
 
                     // sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     // sh "docker push $IMAGE"
