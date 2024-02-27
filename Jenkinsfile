@@ -84,7 +84,7 @@ pipeline {
         steps { 
             script {
                 echo "Depolyment - Development ..."
-                def dockerCmd = "sudo docker stop backend && sudo docker run -p 80:3000 -d --name backend ${IMAGE}"
+                def dockerCmd = "sudo docker run -p 80:3000 -d --name backend ${IMAGE}"
                 sshagent(['SERVER']) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@3.82.8.31 ${dockerCmd}"
                 }           
