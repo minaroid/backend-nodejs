@@ -64,7 +64,7 @@ pipeline {
             script {
                 echo "Build docker image.."           
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh "docker build -t $IMAGE ."
+                    sh "docker build -t --platform linux/amd64 $IMAGE ."
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     sh "docker push $IMAGE"
                     sh "docker tag $IMAGE $LATEST_IMAGE"
@@ -84,7 +84,7 @@ pipeline {
         steps { 
             script {
                 echo "Depolyment - Development ..."
-                def dockerCmd = "sudo docker run -p 3000:3000 -d --name backend ${IMAGE}"
+                def dockerCmd = "sudo docker run -p 80:3000 -d --name backend ${IMAGE}"
                 sshagent(['SERVER']) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@3.82.8.31 ${dockerCmd}"
 
