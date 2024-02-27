@@ -64,7 +64,7 @@ pipeline {
             script {
                 echo "Build docker image.."           
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh "docker build -t --platform linux/amd64 $IMAGE ."
+                    sh "docker build --platform linux/amd64 -t $IMAGE ."
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     sh "docker push $IMAGE"
                     sh "docker tag $IMAGE $LATEST_IMAGE"
