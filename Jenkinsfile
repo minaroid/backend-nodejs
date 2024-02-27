@@ -120,4 +120,18 @@ pipeline {
 
     }
 
+    post {
+        success { 
+            script {
+                withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    sh "git status"
+                    // sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
+                    // sh "docker push $IMAGE"
+                    // sh "docker tag $IMAGE $LATEST_IMAGE"
+                    // sh "docker push $LATEST_IMAGE"
+                }
+            }
+        }
+    }
+
 }
