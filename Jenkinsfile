@@ -84,7 +84,6 @@ pipeline {
         }
 
         steps { 
-            input message: "Deploy to production?"
             script {
                 echo "Depolyment - Development ..."           
             }
@@ -112,6 +111,7 @@ pipeline {
         }
 
         steps { 
+            input message: "Deploy to production?"
             script {
                 echo "Depolyment - Production ..."           
             }
