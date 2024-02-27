@@ -83,24 +83,8 @@ pipeline {
             }
         }
 
-        
-        input {
-            message "Deploy this build to production?"
-            ok "Done"
-            parameters {
-                choice(name: 'SELECTED', choices: ['YES', 'NO'], description: '')
-            }
-        }
-
-   
-
         steps { 
-         when{
-           expression {
-               params.SELECTED == 'YES'
-           }
-        }
-
+            input message: "promote to prodcustion or Abort", submitter: "user1,admin"
             script {
                 echo "Depolyment - Development ..."           
             }
