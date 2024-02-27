@@ -124,7 +124,7 @@ pipeline {
         success { 
             script {
                 withCredentials([usernamePassword(credentialsId: 'GITHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh "echo "# Jenkins-docker" >> koko.md"
+                    sh 'echo "Jenkins-docker" >> koko.md'
                     sh "git add ./koko.md"
                     sh 'git commit -m "ci: version bump"'
                     sh 'git push'
