@@ -5,7 +5,7 @@ WORKDIR /usr/app
 COPY package.json package-lock.json ./
 RUN npm i
 
-COPY ./build/ ./
+COPY ./build/ ./build
 
 
 EXPOSE 3000
