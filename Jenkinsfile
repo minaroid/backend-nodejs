@@ -131,7 +131,7 @@ pipeline {
                     
                     sh 'git commit -m "ci: version bump"'
                     sh "echo ${env.GIT_URL}"
-                    sh "git remote set-url origin http://${USERNAME}:${PASSWORD}@${env.GIT_URL}"
+                    sh "git remote set-url origin http://${USERNAME}:${PASSWORD}@github.com/minaroid/backend-nodejs.git"
                     sh "git push origin HEAD:${env.BRANCH_NAME}"
 
                     // sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
