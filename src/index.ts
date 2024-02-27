@@ -9,7 +9,7 @@ app.get("/health", (request: Request, response: Response, next: Function) => {
   response.status(200).json("200 OK");
 })
 
-const port = process.env["PORT"] ?? 3000;
+const port = process.env["SERVER_PORT"] ?? 3000;
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
