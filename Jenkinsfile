@@ -87,8 +87,8 @@ pipeline {
                 def shellCmd = "bash ./server-cmds.sh ${IMAGE}"
                 def dockerCmd = "sudo docker run -p 80:3000 -d --name backend ${IMAGE}"
                 sshagent(['SERVER']) {
-                    // sh "scp server-cmds.sh ubuntu@3.90.242.254:/home/ubuntu"
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.90.242.254 ${dockerCmd}"
+                    sh "scp ./server-cmds.sh ubuntu@3.90.242.254:/home/ubuntu"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.90.242.254 ${shellCmd}"
                 }           
             }
         }
