@@ -1,25 +1,26 @@
-# Node.js App Deployment to AWS EC2 with Jenkins
+# Node.js App Deployment to AWS EC2 with Jenkins / CircleCi
 
-This repository contains configurations and scripts to deploy a simple Node.js application to an AWS EC2 instance using Jenkins. The deployment process is automated with Jenkins pipelines and includes steps for building the application, building docker image, and deploying the application.
+This repository contains configurations and scripts to deploy a simple Node.js application to an AWS EC2 instance, The deployment process is automated with Jenkins / CircleCi pipelines and includes steps for building the application, building docker image, and deploying the application.
 
 ## Application Overview
 
-The Node.js application in this repository serves as a simple example to demonstrate deployment automation with Jenkins. It includes basic functionality and can be extended or modified as needed.
+The Node.js application in this repository serves as a simple example to demonstrate deployment automation with Jenkins / CircleCi. It includes basic functionality and can be extended or modified as needed.
 
-## Jenkins Pipeline
+## Pipeline
 
-The Jenkins pipeline defined in this repository automates the deployment process. It includes stages for building the application, building docker image, and deploying the application.
+The  Jenkins / CircleCi pipeline defined in this repository automates the deployment process. It includes stages for building the application, building docker image, and deploying the application.
 
-## Prerequisites
+
+## Prerequisites - Jenkins
 
 Before deploying the application using Jenkins, ensure you have the following prerequisites:
 
-- Jenkins server installed and configured
+- Jenkins server installed and configured or CircleCi connected to your repo
 - AWS credentials configured in Jenkins for EC2 instance provisioning
 - Access to an AWS EC2 instance for deployment
 - Node.js and npm installed on the EC2 instance
 
-## Deployment Steps
+## Deployment Steps - Jenkins
 
 To deploy the application to an AWS EC2 instance using Jenkins, follow these steps:
 
@@ -30,6 +31,20 @@ To deploy the application to an AWS EC2 instance using Jenkins, follow these ste
 3. Jenkins will execute the pipeline stages, including building the application, provisioning the EC2 instance, and deploying the application to the instance.
 
 4. Once the deployment is complete, verify that the application is accessible on the EC2 instance's public IP address or domain name.
+
+
+## Prerequisites - CircleCi
+
+Before deploying the application using CircleCi, ensure you have the following prerequisites:
+
+- CircleCi Account Connected to your repository
+
+## Deployment Steps - CircleCi
+
+To deploy the application to an AWS EC2 instance using CircleCi, follow these steps:
+
+- CircleCi will execute the pipeline stages, including building the application, provisioning the EC2 instance, and deploying the application to the instance.
+
 
 ## Contributing
 
