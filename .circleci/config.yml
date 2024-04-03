@@ -67,7 +67,7 @@ jobs:
           docker push $LATEST_IMAGE
           echo $DEVELOPMENT_SSH_KEY >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no user@54.158.215.159 "ls -la"
+          ssh -o StrictHostKeyChecking=no ubuntu@54.158.215.159 "ls -la"
       - <<: *persist_build_to_workspace
 
   deploy-staging:
