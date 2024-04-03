@@ -40,6 +40,14 @@ jobs:
           key: nodejs-deps-{{ checksum "package-lock.json" }}
       - <<: *persist_node_modules_to_workspace
 
+  build:
+    <<: *build_image
+    steps:
+      - checkout
+      - <<: *attach_workspace
+      - run: |
+          npm run build
+      - <<: *persist_build_to_workspace
 
 
 workflows:
@@ -54,15 +62,15 @@ workflows:
                 - deployments/staging
                 - deployments/production
 
-      # - build:
-      #     requires:
-      #       - install
-      #     filters:
-      #       branches:
-      #         only:
-      #           - development
-      #           - staging
-      #           - production
+      - build:
+          requires:
+            - install
+          filters:
+            branches:
+              only:
+                - deployments/development
+                - deployments/staging
+                - deployments/production
       # - development:
       #     requires:
       #       - build
