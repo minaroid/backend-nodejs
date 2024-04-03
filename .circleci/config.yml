@@ -30,14 +30,14 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - nodejs-deps-{{ checksum "package-lock.lock" }}
+            - nodejs-deps-{{ checksum "package-lock.json" }}
             - nodejs-deps-
       - run: |
           npm install
       - save_cache:
           paths:
             - node_modules
-          key: nodejs-deps-{{ checksum "package-lock.lock" }}
+          key: nodejs-deps-{{ checksum "package-lock.json" }}
       - <<: *persist_node_modules_to_workspace
 
 
