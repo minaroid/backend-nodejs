@@ -140,13 +140,13 @@ workflows:
       - deploy-staging:
           requires:
             - build
-        filters:
-          branches:
-            only: deployments/staging
+          filters:
+            branches:
+              only: deployments/staging
      
-      # - deploy-production:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: deployments/production
+      - deploy-production:
+          requires:
+            - build
+          filters:
+            branches:
+              only: deployments/production
