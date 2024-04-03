@@ -59,7 +59,7 @@ jobs:
           docker_layer_caching: true
       - run: |
           IMAGE=minaroid/nodejs-circleci:development-1.0.$BUILD_NUMBER
-          LATEST_IMAGE=$AWS_ECR:development-latest
+          LATEST_IMAGE=nodejs-circleci:development-latest
           docker build -t $IMAGE .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push $
