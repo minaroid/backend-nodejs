@@ -62,7 +62,7 @@ jobs:
           LATEST_IMAGE=nodejs-circleci:development-latest
           docker build -t $IMAGE .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $
+          docker push $IMAGE
           docker tag $IMAGE $LATEST_IMAGE
           docker push $LATEST_IMAGE
 
