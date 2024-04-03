@@ -10,7 +10,8 @@ app.get("/health", (request: Request, response: Response, next: Function) => {
 })
 
 app.get("/hello", (request: Request, response: Response, next: Function) => {
-  response.status(200).json("hello 💪💪");
+  console.log("TEST......:1")
+  response.status(200).json("hello 💪💪 koko");
 })
 
 const port = process.env["SERVER_PORT"] ?? 3000;

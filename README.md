@@ -38,3 +38,12 @@ Contributions to improve or extend this example repository are welcome! If you h
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 321397881832.dkr.ecr.us-east-1.amazonaws.com
+npm run build
+docker build -t nodejs-express .
+docker tag nodejs-express:development 321397881832.dkr.ecr.us-east-1.amazonaws.com/nodejs-express:development
+docker push 321397881832.dkr.ecr.us-east-1.amazonaws.com/nodejs-express:development
+aws ecs update-service --cluster development-ecs-cluster --service development-ecs-service --force-new-deployment
+
