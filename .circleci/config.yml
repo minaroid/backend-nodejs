@@ -58,7 +58,7 @@ jobs:
           version: 19.03.13
           docker_layer_caching: true
       - run: |
-          IMAGE=minaroid/nodejs-circleci:development-1.0.$BUILD_NUMBER
+          IMAGE=minaroid/nodejs-circleci:development-1.0.$CIRCLE_BUILD_NUM
           LATEST_IMAGE=minaroid/nodejs-circleci:development-latest
           docker build -t $IMAGE .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
