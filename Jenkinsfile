@@ -62,7 +62,7 @@ pipeline {
 
         steps { 
             script {
-                echo "Build docker image.."           
+                echo "Build docker image.. ${env.BRANCH_NAME}"           
                 withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                     sh "docker build --platform linux/amd64 -t $IMAGE ."
                     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
