@@ -63,6 +63,7 @@ jobs:
           docker build -t $IMAGE .
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push $IMAGE
+          docker tag $IMAGE $LATEST_IMAGE
 
       - <<: *persist_build_to_workspace
 
