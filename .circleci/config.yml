@@ -50,9 +50,9 @@ workflows:
           filters:
             branches:
               only:
-                - development
-                - staging
-                - production
+                - deployments/development
+                - deployments/staging
+                - deployments/production
 
       # - build:
       #     requires:
