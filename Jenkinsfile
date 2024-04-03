@@ -86,8 +86,8 @@ pipeline {
                 echo "Depolyment - Development ..."
                 def shellCmd = "bash ./server-cmds.sh ${IMAGE}"
                 sshagent(['SERVER']) {
-                    sh "scp ./server-cmds.sh ubuntu@3.90.242.254:/home/ubuntu"
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.90.242.254 ${shellCmd}"
+                    sh "scp ./server-cmds.sh ubuntu@54.198.207.67:/home/ubuntu"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.198.207.67 ${shellCmd}"
                 }           
             }
         }

@@ -11,7 +11,7 @@ app.get("/health", (request: Request, response: Response, next: Function) => {
 
 app.get("/hello", (request: Request, response: Response, next: Function) => {
   console.log("TEST......:1")
-  response.status(200).json("hello TDRA 💪💪");
+  response.status(200).json("hello TDRA  again💪💪");
 })
 
 const port = process.env["SERVER_PORT"] ?? 3000;
