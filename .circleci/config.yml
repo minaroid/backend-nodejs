@@ -49,6 +49,25 @@ jobs:
           npm run build
       - <<: *persist_build_to_workspace
 
+  deploy-development:
+    <<: *build_image
+    steps:
+      - checkout
+      - <<: *attach_workspace
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+      - run: |
+          IMAGE=minaroid/nodejs-circleci:development-1.0.$BUILD_NUMBER
+          LATEST_IMAGE=$AWS_ECR:development-latest
+          docker build -t $IMAGE .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          docker push $
+          docker tag $IMAGE $LATEST_IMAGE
+          docker push $LATEST_IMAGE
+
+      - <<: *persist_build_to_workspace
+
 
 workflows:
   version: 2
@@ -71,12 +90,12 @@ workflows:
                 - deployments/development
                 - deployments/staging
                 - deployments/production
-      # - development:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: development
+      - deploy-development:
+          requires:
+            - build
+          filters:
+            branches:
+              only: development
       # - staging:
       #     requires:
       #       - build
