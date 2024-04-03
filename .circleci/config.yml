@@ -58,16 +58,10 @@ jobs:
           version: 19.03.13
           docker_layer_caching: true
       - run: |
-          IMAGE=minaroid/nodejs-circleci:development-1.0.$CIRCLE_BUILD_NUM
-          LATEST_IMAGE=minaroid/nodejs-circleci:development-latest
-          docker build -t $IMAGE .
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $IMAGE
-          docker tag $IMAGE $LATEST_IMAGE
-          docker push $LATEST_IMAGE
+          
           echo $DEVELOPMENT_SSH_KEY >> ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no ubuntu@54.158.215.159 "ls -la"
+          ssh -i  ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@54.158.215.159 "ls -la"
       - <<: *persist_build_to_workspace
 
   deploy-staging:
