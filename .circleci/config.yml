@@ -66,7 +66,6 @@ jobs:
           docker tag $IMAGE $LATEST_IMAGE
           docker push $LATEST_IMAGE
           echo $DEVELOPMENT_SSH_KEY >>./id_rsa
-          cat ./id_rsa
           ssh-keyscan -p 22 54.158.215.159 >> ~/.ssh/known_hosts
           scp -i ./id_rsa ./server-cmds.sh ubuntu@54.158.215.159:/home/ubuntu
       - <<: *persist_build_to_workspace
