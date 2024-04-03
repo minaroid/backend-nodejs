@@ -65,7 +65,7 @@ jobs:
           docker push $IMAGE
           docker tag $IMAGE $LATEST_IMAGE
           docker push $LATEST_IMAGE
-          scp ./server-cmds.sh ubuntu@54.158.215.159:/home/ubuntu
+          scp -o StrictHostKeyChecking=no ./server-cmds.sh ubuntu@54.158.215.159:/home/ubuntu
       - <<: *persist_build_to_workspace
 
   deploy-staging:
